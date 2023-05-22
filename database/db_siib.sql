@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: May 22, 2023 at 06:53 AM
+-- Generation Time: May 22, 2023 at 10:05 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 7.4.33
 
@@ -20,6 +20,53 @@ SET time_zone = "+00:00";
 --
 -- Database: `db_siib`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `inventaris`
+--
+
+CREATE TABLE `inventaris` (
+  `id_inventaris` int(11) NOT NULL,
+  `kode` varchar(100) NOT NULL,
+  `nama_barang` varchar(255) NOT NULL,
+  `merk` varchar(255) NOT NULL,
+  `qty` int(11) NOT NULL,
+  `harga` int(11) NOT NULL,
+  `gambar` varchar(255) NOT NULL,
+  `tahun_perolehan` varchar(100) NOT NULL,
+  `id_kondisi` int(11) NOT NULL,
+  `date_created` date NOT NULL,
+  `is_active` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `inventaris`
+--
+
+INSERT INTO `inventaris` (`id_inventaris`, `kode`, `nama_barang`, `merk`, `qty`, `harga`, `gambar`, `tahun_perolehan`, `id_kondisi`, `date_created`, `is_active`) VALUES
+(2, 'PAG001', 'Headphone', 'ATX 3000', 4, 875000, '646b1c934c1d2.jpeg', '2023', 1, '2023-05-22', 1),
+(3, 'PAG002', 'Mic Audio', 'Rode PodMic', 3, 750000, '646b1cd407644.jpeg', '2022', 1, '2023-05-22', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `kondisi`
+--
+
+CREATE TABLE `kondisi` (
+  `id_kondisi` int(11) NOT NULL,
+  `kondisi` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `kondisi`
+--
+
+INSERT INTO `kondisi` (`id_kondisi`, `kondisi`) VALUES
+(1, 'Baik'),
+(2, 'Rusak');
 
 -- --------------------------------------------------------
 
@@ -71,6 +118,18 @@ INSERT INTO `users_role` (`id_role`, `role`) VALUES
 --
 
 --
+-- Indexes for table `inventaris`
+--
+ALTER TABLE `inventaris`
+  ADD PRIMARY KEY (`id_inventaris`);
+
+--
+-- Indexes for table `kondisi`
+--
+ALTER TABLE `kondisi`
+  ADD PRIMARY KEY (`id_kondisi`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -85,6 +144,18 @@ ALTER TABLE `users_role`
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `inventaris`
+--
+ALTER TABLE `inventaris`
+  MODIFY `id_inventaris` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `kondisi`
+--
+ALTER TABLE `kondisi`
+  MODIFY `id_kondisi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `users`

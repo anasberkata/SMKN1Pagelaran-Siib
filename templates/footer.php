@@ -15,6 +15,29 @@
 </div>
 </main>
 
+<script src="../vendor/simple-datatables/simple-datatables.js"></script>
+<script>
+    let data = document.querySelector('#data-table');
+    let dataTable = new simpleDatatables.DataTable(data);
+</script>
+
+<script>
+    var menuItems = document.getElementsByClassName('nav-link');
+    for (var i = 0; i < menuItems.length; i++) {
+        menuItems[i].addEventListener('click', function () {
+            // Menghapus class 'active' dari semua menu-item
+            for (var j = 0; j < menuItems.length; j++) {
+                menuItems[j].classList.remove('bg-gradient-primary');
+                menuItems[j].classList.remove('active');
+            }
+
+            // Menambahkan class 'active' ke menu-item yang diklik
+            this.classList.add('bg-gradient-primary');
+            this.classList.add('active');
+        });
+    }
+</script>
+
 <!--   Core JS Files   -->
 <script src="../assets/js/core/popper.min.js"></script>
 <script src="../assets/js/core/bootstrap.min.js"></script>

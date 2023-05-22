@@ -40,6 +40,9 @@ ini_set('display_errors', 1); //Atau error_reporting(E_ALL && ~E_NOTICE);
     <link href="../assets/online/icon.css" rel="stylesheet">
     <!-- CSS Files -->
     <link id="pagestyle" href="../assets/css/material-dashboard.css?v=3.0.5" rel="stylesheet" />
+
+    <!-- Datatables -->
+    <link rel="stylesheet" href="../vendor/simple-datatables/style.css">
 </head>
 
 <body class="g-sidenav-show  bg-gray-200">

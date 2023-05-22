@@ -124,3 +124,146 @@ function profile_edit($data)
 
     return mysqli_affected_rows($conn);
 }
+
+// INVENTARIS
+function inventaris_add($data)
+{
+    global $conn;
+
+    $kode = $data["kode"];
+    $nama_barang = $data["nama_barang"];
+    $merk = $data["merk"];
+    $qty = $data["qty"];
+    $harga = $data["harga"];
+    $gambar = upload_gambar();
+    $tahun_perolehan = $data["tahun_perolehan"];
+    $id_kondisi = $data["id_kondisi"];
+    $date_created = date("Y-m-d");
+    $is_active = 1;
+
+    $cek_kode = mysqli_query($conn, "SELECT kode FROM inventaris WHERE kode = '$kode'");
+
+    if (mysqli_fetch_assoc($cek_kode)) {
+        echo "<script>
+            alert('Barang Sudah Ada!');
+            document.location.href = 'inventaris_add.php';
+            </script>";
+    } else {
+        $query = "INSERT INTO inventaris
+				VALUES
+			(NULL, '$kode', '$nama_barang', '$merk', '$qty', '$harga', '$gambar', '$tahun_perolehan', '$id_kondisi', '$date_created', '$is_active')
+			";
+
+        mysqli_query($conn, $query);
+    }
+
+    return mysqli_affected_rows($conn);
+}
+
+function inventaris_edit($data)
+{
+    global $conn;
+
+    $id_inventaris = $data["id_inventaris"];
+    $kode = $data["kode"];
+    $nama_barang = $data["nama_barang"];
+    $merk = $data["merk"];
+    $qty = $data["qty"];
+    $harga = $data["harga"];
+    $gambar_lama = $data["gambar_lama"];
+
+    if ($_FILES["gambar"]["error"] === 4) {
+        $gambar = $gambar_lama;
+    } else {
+        $gambar = upload_gambar();
+    }
+
+    $tahun_perolehan = $data["tahun_perolehan"];
+    $id_kondisi = $data["id_kondisi"];
+
+    $query = "UPDATE inventaris SET
+			kode = '$kode',
+			nama_barang = '$nama_barang',
+			merk = '$merk',
+			qty = '$qty',
+			harga = '$harga',
+			gambar = '$gambar',
+			tahun_perolehan = '$tahun_perolehan',
+			id_kondisi = '$id_kondisi'
+
+            WHERE id_inventaris = $id_inventaris
+			";
+
+    mysqli_query(
+        $conn,
+        $query
+    );
+
+    return mysqli_affected_rows($conn);
+}
+
+function inventaris_delete($id_inventaris)
+{
+    global $conn;
+
+    mysqli_query($conn, "DELETE FROM inventaris WHERE id_inventaris = $id_inventaris");
+    return mysqli_affected_rows($conn);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+// UPLOAD
+function upload_gambar()
+{
+    $namaFile = $_FILES["gambar"]["name"];
+    $ukuranFile = $_FILES["gambar"]["size"];
+    $error = $_FILES["gambar"]["error"];
+    $tmpName = $_FILES["gambar"]["tmp_name"];
+
+    if ($error === 4) {
+        echo "<script>
+                alert('Foto wajib diupload!');
+            </script>";
+
+        return false;
+    }
+
+    $ekstensiFileValid = ["jpg", "jpeg", "png"];
+    $ekstensiFile = explode(".", $namaFile);
+    $ekstensiFile = strtolower(end($ekstensiFile));
+
+    if (!in_array($ekstensiFile, $ekstensiFileValid)) {
+        echo "<script>
+                alert('Gambar yang diupload bukan gambar!');
+            </script>";
+
+        return false;
+    }
+
+    // max 10mb
+    if ($ukuranFile > 20000000) {
+        echo "<script>
+                alert('Ukuran gambar terlalu besar, Maksimal 20mb!');
+            </script>";
+
+        return false;
+    }
+
+    $namaFileBaru = uniqid();
+    $namaFileBaru .= '.';
+    $namaFileBaru .= $ekstensiFile;
+
+    move_uploaded_file($tmpName, "../assets/img/barang/" . $namaFileBaru);
+
+    return $namaFileBaru;
+}
