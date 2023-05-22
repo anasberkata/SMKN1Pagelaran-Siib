@@ -23,17 +23,17 @@ include "templates/auth_header.php";
           </div>
         </div>
         <div class="card-body">
-          <form role="form" class="text-start">
+          <form role="form" class="text-start" method="POST" action="cek_login.php">
             <div class="input-group input-group-outline my-3">
-              <label class="form-label">Email</label>
-              <input type="email" class="form-control">
+              <label class="form-label">Username</label>
+              <input type="text" class="form-control" name="username">
             </div>
             <div class="input-group input-group-outline mb-3">
               <label class="form-label">Password</label>
-              <input type="password" class="form-control">
+              <input type="password" class="form-control" name="password">
             </div>
             <div class="text-center">
-              <button type="button" class="btn bg-gradient-primary w-100 my-4 mb-2">Sign in</button>
+              <button type="submit" class="btn bg-gradient-primary w-100 my-4 mb-2">Sign in</button>
             </div>
           </form>
         </div>

@@ -1,3 +1,21 @@
+<?php
+if (!isset($_SESSION['login'])) {
+    header("Location: ../index.php");
+    exit;
+}
+
+require "../functions.php";
+
+$id = $_SESSION['id'];
+$user = query(
+    "SELECT * FROM users
+    INNER JOIN users_role ON users.role_id = users_role.id_role
+    WHERE id_user = $id"
+)[0];
+
+ini_set('display_errors', 1); //Atau error_reporting(E_ALL && ~E_NOTICE);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +23,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
-    <link rel="icon" type="image/png" href="../assets/img/favicon.png">
+    <link rel="icon" type="image/png" href="../assets/img/logo sekolah.png">
     <title>
         Sistem Informasi Inventaris Barang
     </title>

@@ -13,8 +13,13 @@
     <hr class="horizontal light mt-0 mb-2">
     <div class="w-auto">
         <ul class="navbar-nav">
+            <li class="nav-item mt-3">
+                <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">Menu Utama
+                </h6>
+            </li>
+
             <li class="nav-item">
-                <a class="nav-link text-white active bg-gradient-primary" href="../pages/dashboard.html">
+                <a class="nav-link text-white active bg-gradient-primary" href="../view_admin/dashboard.php">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="material-icons opacity-10">dashboard</i>
                     </div>
@@ -22,7 +27,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-white " href="../pages/billing.html">
+                <a class="nav-link text-white " href="../view_admin/pengajuan.php">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="material-icons opacity-10">receipt_long</i>
                     </div>
@@ -30,7 +35,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-white " href="../pages/tables.html">
+                <a class="nav-link text-white " href="../view_admin/inventaris.php">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="material-icons opacity-10">table_view</i>
                     </div>
@@ -44,7 +49,7 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link text-white " href="../pages/sign-up.html">
+                <a class="nav-link text-white " href="../view_user/users.php">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="material-icons opacity-10">people</i>
                     </div>
@@ -52,7 +57,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-white " href="../pages/profile.html">
+                <a class="nav-link text-white " href="../view_user/profile.php">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="material-icons opacity-10">person</i>
                     </div>
@@ -66,7 +71,8 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link text-white " href="../pages/sign-in.html">
+                <a class="nav-link text-white " href="../logout.php"
+                    onclick="return confirm('Yakin ingin keluar dari aplikasi?');">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="material-icons opacity-10">logout</i>
                     </div>
