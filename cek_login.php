@@ -27,7 +27,7 @@ if ($cek > 0) {
         $_SESSION['login'] = true;
         $_SESSION['id'] = $data['id_user'];
 
-        header("location: view_admin/dashboard_ka.php");
+        header("location: view_admin/dashboard.php");
     } else {
         header("location: index.php?pesan=Username / Password salah");
     }

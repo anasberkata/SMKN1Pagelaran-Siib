@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: May 23, 2023 at 06:50 AM
+-- Generation Time: May 23, 2023 at 09:24 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 7.4.33
 
@@ -135,7 +135,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id_user`, `nama`, `username`, `email`, `password`, `image`, `role_id`, `date_created`, `is_active`) VALUES
-(1, 'Beni Agustian, S.Kom', 'admin', 'beniagustian@gmail.com', 'admin', 'default.jpg', 1, '2023-04-26', 1),
+(1, 'Beni Agustian', 'admin', 'beniagustian@gmail.com', 'admin', 'default.jpg', 1, '2023-04-26', 1),
 (3, 'Kepala Program TKJ', 'kaprogtkj', 'kaprogtkj@gmail.com', 'kaprogtkj', 'default.jpg', 2, '2023-04-26', 1);
 
 -- --------------------------------------------------------

@@ -18,8 +18,10 @@ $inventaris = query(
                     </div>
                     <div class="col-lg-6 col-5 my-auto text-end">
                         <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                            <a href="inventaris_add.php" class="btn btn-sm btn-info text-white"><i
-                                    class="material-icons opacity-10">add</i> Tambah</a>
+                            <?php if ($user["role_id"] == 1): ?>
+                                <a href="inventaris_add.php" class="btn btn-sm btn-info text-white"><i
+                                        class="material-icons opacity-10">add</i> Tambah</a>
+                            <?php endif; ?>
                             <a href="inventaris_print.php" class="btn btn-sm btn-warning text-white" target="_blank"><i
                                     class="material-icons opacity-10">print</i> Print</a>
                         </div>
@@ -58,9 +60,11 @@ $inventaris = query(
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                                     Kondisi
                                 </th>
-                                <th
-                                    class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                    Aksi</th>
+                                <?php if ($user["role_id"] == 1): ?>
+                                    <th
+                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                        Aksi</th>
+                                <?php endif; ?>
                             </tr>
                         </thead>
                         <tbody>
@@ -119,17 +123,19 @@ $inventaris = query(
                                             <?= $i["kondisi"]; ?>
                                         </span>
                                     </td>
-                                    <td class="align-middle text-center">
-                                        <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                                            <a href="inventaris_edit.php?id_inventaris=<?= $i["id_inventaris"] ?>"
-                                                class="btn btn-sm btn-info text-white"><i
-                                                    class="material-icons opacity-10">edit</i></a>
-                                            <a href="inventaris_delete.php?id_inventaris=<?= $i["id_inventaris"] ?>"
-                                                class="btn btn-sm btn-danger text-white"
-                                                onclick="return confirm('Yakin ingin menghapus <?= $i['nama_barang']; ?>?');"><i
-                                                    class="material-icons opacity-10">delete</i></a>
-                                        </div>
-                                    </td>
+                                    <?php if ($user["role_id"] == 1): ?>
+                                        <td class="align-middle text-center">
+                                            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                                                <a href="inventaris_edit.php?id_inventaris=<?= $i["id_inventaris"] ?>"
+                                                    class="btn btn-sm btn-info text-white"><i
+                                                        class="material-icons opacity-10">edit</i></a>
+                                                <a href="inventaris_delete.php?id_inventaris=<?= $i["id_inventaris"] ?>"
+                                                    class="btn btn-sm btn-danger text-white"
+                                                    onclick="return confirm('Yakin ingin menghapus <?= $i['nama_barang']; ?>?');"><i
+                                                        class="material-icons opacity-10">delete</i></a>
+                                            </div>
+                                        </td>
+                                    <?php endif; ?>
                                 </tr>
                                 <?php $n++; ?>
                             <?php endforeach; ?>

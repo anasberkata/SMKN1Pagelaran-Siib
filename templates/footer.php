@@ -21,7 +21,7 @@
     let dataTable = new simpleDatatables.DataTable(data);
 </script>
 
-<script>
+<!-- <script>
     var menuItems = document.getElementsByClassName('nav-link');
     for (var i = 0; i < menuItems.length; i++) {
         menuItems[i].addEventListener('click', function () {
@@ -36,7 +36,7 @@
             this.classList.add('active');
         });
     }
-</script>
+</script> -->
 
 <!--   Core JS Files   -->
 <script src="../assets/js/core/popper.min.js"></script>

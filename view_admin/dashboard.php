@@ -1,6 +1,20 @@
 <?php
 session_start();
 include "../templates/header.php";
+
+$inventaris = query("SELECT * FROM inventaris");
+$total_inventaris = count($inventaris);
+
+$pengajuan = query("SELECT * FROM pengajuan");
+$total_pengajuan = count($pengajuan);
+
+$pengguna = query("SELECT * FROM users");
+$total_pengguna = count($pengguna);
+
+$inventaris_rusak = query(
+  "SELECT * FROM inventaris WHERE id_kondisi = 2"
+);
+
 ?>
 
 <div class="row">
@@ -14,7 +28,9 @@ include "../templates/header.php";
         </div>
         <div class="text-end pt-1">
           <p class="text-sm mb-0 text-capitalize">Inventaris</p>
-          <h4 class="mb-0">200</h4>
+          <h4 class="mb-0">
+            <?= $total_inventaris ?>
+          </h4>
         </div>
       </div>
     </div>
@@ -28,7 +44,9 @@ include "../templates/header.php";
         </div>
         <div class="text-end pt-1">
           <p class="text-sm mb-0 text-capitalize">Pengajuan</p>
-          <h4 class="mb-0">20</h4>
+          <h4 class="mb-0">
+            <?= $total_pengajuan ?>
+          </h4>
         </div>
       </div>
     </div>
@@ -42,7 +60,9 @@ include "../templates/header.php";
         </div>
         <div class="text-end pt-1">
           <p class="text-sm mb-0 text-capitalize">Pengguna</p>
-          <h4 class="mb-0">2</h4>
+          <h4 class="mb-0">
+            <?= $total_pengguna ?>
+          </h4>
         </div>
       </div>
     </div>
@@ -56,7 +76,7 @@ include "../templates/header.php";
       <div class="card-header pb-0">
         <div class="row">
           <div class="col-lg-6 col-7">
-            <h6>Projects</h6>
+            <h6>Alat / Barang Inventaris yang Rusak</h6>
           </div>
           <div class="col-lg-6 col-5 my-auto text-end">
 
@@ -65,66 +85,74 @@ include "../templates/header.php";
       </div>
       <div class="card-body px-0 pb-2">
         <div class="table-responsive">
-          <table class="table align-items-center mb-0">
+          <table class="table align-items-center mb-0" id="data-table">
             <thead>
               <tr>
-                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Companies</th>
-                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Members</th>
-                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Budget
+                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">
+                  No.</th>
+                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                  Gambar
                 </th>
-                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                  Completion</th>
+                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                  Nama Barang</th>
+                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                  Merk</th>
+                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                  Qty
+                </th>
+                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                  Harga
+                </th>
+                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                  Total Harga
+                </th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>
-                  <div class="d-flex px-2 py-1">
-                    <div>
-                      <img src="../assets/img/small-logos/logo-xd.svg" class="avatar avatar-sm me-3" alt="xd">
-                    </div>
-                    <div class="d-flex flex-column justify-content-center">
-                      <h6 class="mb-0 text-sm">Material XD Version</h6>
-                    </div>
-                  </div>
-                </td>
-                <td>
-                  <div class="avatar-group mt-2">
-                    <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip"
-                      data-bs-placement="bottom" title="Ryan Tompson">
-                      <img src="../assets/img/team-1.jpg" alt="team1">
-                    </a>
-                    <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip"
-                      data-bs-placement="bottom" title="Romina Hadid">
-                      <img src="../assets/img/team-2.jpg" alt="team2">
-                    </a>
-                    <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip"
-                      data-bs-placement="bottom" title="Alexander Smith">
-                      <img src="../assets/img/team-3.jpg" alt="team3">
-                    </a>
-                    <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip"
-                      data-bs-placement="bottom" title="Jessica Doe">
-                      <img src="../assets/img/team-4.jpg" alt="team4">
-                    </a>
-                  </div>
-                </td>
-                <td class="align-middle text-center text-sm">
-                  <span class="text-xs font-weight-bold"> $14,000 </span>
-                </td>
-                <td class="align-middle">
-                  <div class="progress-wrapper w-75 mx-auto">
-                    <div class="progress-info">
-                      <div class="progress-percentage">
-                        <span class="text-xs font-weight-bold">60%</span>
-                      </div>
-                    </div>
-                    <div class="progress">
-                      <div class="progress-bar bg-gradient-info w-60" role="progressbar" aria-valuenow="60"
-                        aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                  </div>
-                </td>
-              </tr>
+              <?php $n = 1; ?>
+              <?php foreach ($inventaris as $i): ?>
+                <tr>
+                  <td class="text-center text-sm">
+                    <span class="mb-0 text-sm">
+                      <?= $n; ?>
+                    </span>
+                  </td>
+                  <td class="w-20">
+                    <span class="mb-0 text-sm">
+                      <img src="../assets/img/barang/<?= $i["gambar"]; ?>" class="img-thumbnail" width="50%">
+                    </span>
+                  </td>
+                  <td>
+                    <span class="mb-0 text-sm">
+                      <?= $i["nama_barang"]; ?>
+                    </span>
+                  </td>
+                  <td>
+                    <span class="mb-0 text-sm">
+                      <?= $i["merk"]; ?>
+                    </span>
+                  </td>
+                  <td>
+                    <span class="mb-0 text-sm">
+                      <?= $i["qty"]; ?>
+                    </span>
+                  </td>
+                  <td>
+                    <span class="mb-0 text-sm">
+                      Rp.
+                      <?= number_format($i["harga"], 0, ',', '.'); ?>
+                    </span>
+                  </td>
+                  <td>
+                    <span class="mb-0 text-sm">
+                      Rp.
+                      <?= number_format($i["qty"] * $i["harga"], 0, ',', '.'); ?>
+                    </span>
+                  </td>
+                  <td>
+                </tr>
+                <?php $n++; ?>
+              <?php endforeach; ?>
             </tbody>
           </table>
         </div>

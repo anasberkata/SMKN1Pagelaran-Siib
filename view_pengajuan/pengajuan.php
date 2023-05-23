@@ -16,12 +16,14 @@ $pengajuan = query(
                     <div class="col-lg-6 col-7">
                         <h6>Data Pengajuan</h6>
                     </div>
-                    <div class="col-lg-6 col-5 my-auto text-end">
-                        <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                            <a href="pengajuan_add.php" class="btn btn-sm btn-info text-white"><i
-                                    class="material-icons opacity-10">add</i> Tambah</a>
+                    <?php if ($user["role_id"] == 1): ?>
+                        <div class="col-lg-6 col-5 my-auto text-end">
+                            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                                <a href="pengajuan_add.php" class="btn btn-sm btn-info text-white"><i
+                                        class="material-icons opacity-10">add</i> Tambah</a>
+                            </div>
                         </div>
-                    </div>
+                    <?php endif; ?>
                 </div>
             </div>
             <div class="card-body px-0 pb-2">
@@ -63,15 +65,16 @@ $pengajuan = query(
                                     <td class="align-middle text-center">
                                         <div class="btn-group btn-group-toggle" data-toggle="buttons">
                                             <a href="pengajuan_detail.php?id_pengajuan=<?= $p["id_pengajuan"] ?>"
-                                                class="btn btn-sm btn-primary text-white"><i
-                                                    class="material-icons opacity-10">input</i> Input</a>
-                                            <a href="pengajuan_edit.php?id_pengajuan=<?= $p["id_pengajuan"] ?>"
-                                                class="btn btn-sm btn-info text-white"><i
-                                                    class="material-icons opacity-10">edit</i></a>
-                                            <a href="pengajuan_delete.php?id_pengajuan=<?= $p["id_pengajuan"] ?>"
-                                                class="btn btn-sm btn-danger text-white"
-                                                onclick="return confirm('Yakin ingin menghapus <?= $p['tanggal_pengajuan']; ?>?');"><i
-                                                    class="material-icons opacity-10">delete</i></a>
+                                                class="btn btn-sm btn-primary text-white">Input</a>
+                                            <?php if ($user["role_id"] == 1): ?>
+                                                <a href="pengajuan_edit.php?id_pengajuan=<?= $p["id_pengajuan"] ?>"
+                                                    class="btn btn-sm btn-info text-white"><i
+                                                        class="material-icons opacity-10">edit</i></a>
+                                                <a href="pengajuan_delete.php?id_pengajuan=<?= $p["id_pengajuan"] ?>"
+                                                    class="btn btn-sm btn-danger text-white"
+                                                    onclick="return confirm('Yakin ingin menghapus <?= $p['tanggal_pengajuan']; ?>?');"><i
+                                                        class="material-icons opacity-10">delete</i></a>
+                                            <?php endif; ?>
                                         </div>
                                     </td>
                                 </tr>
