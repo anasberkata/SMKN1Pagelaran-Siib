@@ -2,9 +2,11 @@
 session_start();
 include "../templates/header.php";
 
-$inventaris = query(
-    "SELECT * FROM inventaris
-    INNER JOIN kondisi ON inventaris.id_kondisi = kondisi.id_kondisi"
+$id_pengajuan = $_GET["id_pengajuan"];
+
+$pengajuan_detail = query(
+    "SELECT * FROM pengajuan_detail
+    WHERE id_pengajuan = $id_pengajuan"
 );
 ?>
 
@@ -14,13 +16,15 @@ $inventaris = query(
             <div class="card-header pb-0">
                 <div class="row">
                     <div class="col-lg-6 col-7">
-                        <h6>Daftar Inventaris</h6>
+                        <h6>Data Detail Pengajuan</h6>
                     </div>
                     <div class="col-lg-6 col-5 my-auto text-end">
                         <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                            <a href="inventaris_add.php" class="btn btn-sm btn-info text-white"><i
-                                    class="material-icons opacity-10">add</i> Tambah</a>
-                            <a href="inventaris_print.php" class="btn btn-sm btn-warning text-white" target="_blank"><i
+                            <a href="pengajuan_detail_add.php?id_pengajuan=<?= $id_pengajuan; ?>"
+                                class="btn btn-sm btn-info text-white"><i class="material-icons opacity-10">add</i>
+                                Tambah</a>
+                            <a href="pengajuan_detail_print.php?id_pengajuan=<?= $id_pengajuan; ?>"
+                                class="btn btn-sm btn-warning text-white" target="_blank"><i
                                     class="material-icons opacity-10">print</i> Print</a>
                         </div>
                     </div>
@@ -35,29 +39,17 @@ $inventaris = query(
                                     class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">
                                     No.</th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                    Kode</th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                    Gambar
-                                </th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                                     Nama Barang</th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                    Merk</th>
+                                    Spesifikasi</th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                    Qty
-                                </th>
+                                    Qty</th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                    Harga
-                                </th>
+                                    Harga</th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                    Total Harga
-                                </th>
+                                    Jumlah</th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                    Tahun Perolehan
-                                </th>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                    Kondisi
-                                </th>
+                                    Keterangan</th>
                                 <th
                                     class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                     Aksi</th>
@@ -65,7 +57,7 @@ $inventaris = query(
                         </thead>
                         <tbody>
                             <?php $n = 1; ?>
-                            <?php foreach ($inventaris as $i): ?>
+                            <?php foreach ($pengajuan_detail as $pd): ?>
                                 <tr>
                                     <td class="text-center text-sm">
                                         <span class="mb-0 text-sm">
@@ -74,59 +66,43 @@ $inventaris = query(
                                     </td>
                                     <td>
                                         <h6 class="mb-0 text-sm">
-                                            <?= $i["kode"]; ?>
+                                            <?= $pd["nama_barang"]; ?>
                                         </h6>
                                     </td>
                                     <td>
                                         <span class="mb-0 text-sm">
-                                            <img src="../assets/img/barang/<?= $i["gambar"]; ?>" class="img-thumbnail">
+                                            <?= $pd["spesifikasi"]; ?>
                                         </span>
                                     </td>
                                     <td>
                                         <span class="mb-0 text-sm">
-                                            <?= $i["nama_barang"]; ?>
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <span class="mb-0 text-sm">
-                                            <?= $i["merk"]; ?>
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <span class="mb-0 text-sm">
-                                            <?= $i["qty"]; ?>
+                                            <?= $pd["qty"]; ?>
                                         </span>
                                     </td>
                                     <td>
                                         <span class="mb-0 text-sm">
                                             Rp.
-                                            <?= number_format($i["harga"], 0, ',', '.'); ?>
+                                            <?= number_format($pd["harga"], 0, ',', '.'); ?>
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span class="mb-0 text-sm">Rp.
+                                            <?= number_format($pd["jumlah"], 0, ',', '.'); ?>
                                         </span>
                                     </td>
                                     <td>
                                         <span class="mb-0 text-sm">
-                                            Rp.
-                                            <?= number_format($i["qty"] * $i["harga"], 0, ',', '.'); ?>
-                                        </span>
-                                    </td>
-                                    <td class="text-center">
-                                        <span class="mb-0 text-sm">
-                                            <?= $i["tahun_perolehan"]; ?>
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <span class="mb-0 text-sm">
-                                            <?= $i["kondisi"]; ?>
+                                            <?= $pd["keterangan"]; ?>
                                         </span>
                                     </td>
                                     <td class="align-middle text-center">
                                         <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                                            <a href="inventaris_edit.php?id_inventaris=<?= $i["id_inventaris"] ?>"
+                                            <a href="pengajuan_detail_edit.php?id_pengajuan_detail=<?= $pd["id_pengajuan_detail"] ?>&id_pengajuan=<?= $id_pengajuan ?>"
                                                 class="btn btn-sm btn-info text-white"><i
                                                     class="material-icons opacity-10">edit</i></a>
-                                            <a href="inventaris_delete.php?id_inventaris=<?= $i["id_inventaris"] ?>"
+                                            <a href="pengajuan_detail_delete.php?id_pengajuan_detail=<?= $pd["id_pengajuan_detail"] ?>&id_pengajuan=<?= $id_pengajuan ?>"
                                                 class="btn btn-sm btn-danger text-white"
-                                                onclick="return confirm('Yakin ingin menghapus <?= $i['nama_barang']; ?>?');"><i
+                                                onclick="return confirm('Yakin ingin menghapus <?= $pd['nama_barang']; ?>?');"><i
                                                     class="material-icons opacity-10">delete</i></a>
                                         </div>
                                     </td>

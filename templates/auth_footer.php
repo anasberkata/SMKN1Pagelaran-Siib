@@ -4,7 +4,7 @@
             <div class="col-6 col-md-6 my-auto">
                 <div class="copyright text-center text-sm text-white text-center">
                     ©
-                    <?= date("Y"); ?>,
+                    <?= date("Y"); ?>.
                     Dev Beni Agustian.
                 </div>
             </div>

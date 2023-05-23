@@ -210,6 +210,138 @@ function inventaris_delete($id_inventaris)
     return mysqli_affected_rows($conn);
 }
 
+// PENGAJUAN
+function pengajuan_add($data)
+{
+    global $conn;
+
+    $tanggal_pengajuan = $data["tanggal_pengajuan"];
+    $id_user = $data["id_user"];
+
+    $cek_pengajuan = mysqli_query($conn, "SELECT tanggal_pengajuan FROM pengajuan WHERE tanggal_pengajuan = '$tanggal_pengajuan'");
+
+    if (mysqli_fetch_assoc($cek_pengajuan)) {
+        echo "<script>
+            alert('Tanggal Pengajuan Sudah Ada!');
+            document.location.href = 'pengajuan_add.php';
+            </script>";
+    } else {
+        $query = "INSERT INTO pengajuan
+				VALUES
+			(NULL, '$tanggal_pengajuan', '$id_user')
+			";
+
+        mysqli_query($conn, $query);
+    }
+
+    return mysqli_affected_rows($conn);
+}
+
+function pengajuan_edit($data)
+{
+    global $conn;
+
+    $id_pengajuan = $data["id_pengajuan"];
+    $tanggal_pengajuan = $data["tanggal_pengajuan"];
+
+    $cek_pengajuan = mysqli_query($conn, "SELECT tanggal_pengajuan FROM pengajuan WHERE tanggal_pengajuan = '$tanggal_pengajuan'");
+
+    if (mysqli_fetch_assoc($cek_pengajuan)) {
+        echo "<script>
+            alert('Tanggal Pengajuan Sudah Ada!');
+            document.location.href = 'pengajuan_add.php';
+            </script>";
+    } else {
+        $query = "UPDATE pengajuan SET
+			tanggal_pengajuan = '$tanggal_pengajuan'
+
+            WHERE id_pengajuan = $id_pengajuan
+			";
+
+        mysqli_query(
+            $conn,
+            $query
+        );
+    }
+
+    return mysqli_affected_rows($conn);
+}
+
+function pengajuan_delete($id_pengajuan)
+{
+    global $conn;
+
+    mysqli_query($conn, "DELETE FROM pengajuan_detail WHERE id_pengajuan = $id_pengajuan");
+
+    mysqli_query($conn, "DELETE FROM pengajuan WHERE id_pengajuan = $id_pengajuan");
+    return mysqli_affected_rows($conn);
+}
+
+function pengajuan_detail_add($data)
+{
+    global $conn;
+
+    $id_pengajuan = $data["id_pengajuan"];
+    $nama_barang = $data["nama_barang"];
+    $spesifikasi = $data["spesifikasi"];
+    $qty = $data["qty"];
+    $harga = $data["harga"];
+    $jumlah = $qty * $harga;
+    $keterangan = $data["keterangan"];
+
+    $query = "INSERT INTO pengajuan_detail
+				VALUES
+			(NULL, '$id_pengajuan', '$nama_barang', '$spesifikasi', '$qty', '$harga', '$jumlah', '$keterangan')
+			";
+
+    mysqli_query($conn, $query);
+
+    return mysqli_affected_rows($conn);
+}
+
+function pengajuan_detail_edit($data)
+{
+    global $conn;
+
+    $id_pengajuan = $data["id_pengajuan"];
+    $id_pengajuan_detail = $data["id_pengajuan_detail"];
+    $nama_barang = $data["nama_barang"];
+    $spesifikasi = $data["spesifikasi"];
+    $qty = $data["qty"];
+    $harga = $data["harga"];
+    $jumlah = $qty * $harga;
+    $keterangan = $data["keterangan"];
+
+
+    $query = "UPDATE pengajuan_detail SET
+			nama_barang = '$nama_barang',
+			spesifikasi = '$spesifikasi',
+			qty = '$qty',
+			harga = '$harga',
+			jumlah = '$jumlah',
+			keterangan = '$keterangan'
+
+            WHERE id_pengajuan_detail = $id_pengajuan_detail
+			";
+
+    mysqli_query(
+        $conn,
+        $query
+    );
+
+    return mysqli_affected_rows($conn);
+}
+
+function pengajuan_detail_delete($id_pengajuan_detail)
+{
+    global $conn;
+
+    mysqli_query($conn, "DELETE FROM pengajuan_detail WHERE id_pengajuan_detail = $id_pengajuan_detail");
+
+    return mysqli_affected_rows($conn);
+}
+
+
 
 
 

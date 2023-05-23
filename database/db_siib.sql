@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: May 22, 2023 at 10:05 AM
+-- Generation Time: May 23, 2023 at 06:50 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 7.4.33
 
@@ -71,6 +71,50 @@ INSERT INTO `kondisi` (`id_kondisi`, `kondisi`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `pengajuan`
+--
+
+CREATE TABLE `pengajuan` (
+  `id_pengajuan` int(11) NOT NULL,
+  `tanggal_pengajuan` date NOT NULL,
+  `id_user` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `pengajuan`
+--
+
+INSERT INTO `pengajuan` (`id_pengajuan`, `tanggal_pengajuan`, `id_user`) VALUES
+(2, '2023-05-23', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pengajuan_detail`
+--
+
+CREATE TABLE `pengajuan_detail` (
+  `id_pengajuan_detail` int(11) NOT NULL,
+  `id_pengajuan` int(11) NOT NULL,
+  `nama_barang` varchar(255) NOT NULL,
+  `spesifikasi` varchar(255) NOT NULL,
+  `qty` int(11) NOT NULL,
+  `harga` int(11) NOT NULL,
+  `jumlah` int(11) NOT NULL,
+  `keterangan` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `pengajuan_detail`
+--
+
+INSERT INTO `pengajuan_detail` (`id_pengajuan_detail`, `id_pengajuan`, `nama_barang`, `spesifikasi`, `qty`, `harga`, `jumlah`, `keterangan`) VALUES
+(3, 2, 'Komputer', 'Ram 8GB, i5, SSD 512GB', 6, 6650000, 39900000, 'Tanpa Monitor'),
+(4, 2, 'Monitor', 'VGA, HDMI, 16 Inc', 6, 1200000, 7200000, 'Beli 6 PC untuk di Lab');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
@@ -130,6 +174,18 @@ ALTER TABLE `kondisi`
   ADD PRIMARY KEY (`id_kondisi`);
 
 --
+-- Indexes for table `pengajuan`
+--
+ALTER TABLE `pengajuan`
+  ADD PRIMARY KEY (`id_pengajuan`);
+
+--
+-- Indexes for table `pengajuan_detail`
+--
+ALTER TABLE `pengajuan_detail`
+  ADD PRIMARY KEY (`id_pengajuan_detail`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -156,6 +212,18 @@ ALTER TABLE `inventaris`
 --
 ALTER TABLE `kondisi`
   MODIFY `id_kondisi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `pengajuan`
+--
+ALTER TABLE `pengajuan`
+  MODIFY `id_pengajuan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `pengajuan_detail`
+--
+ALTER TABLE `pengajuan_detail`
+  MODIFY `id_pengajuan_detail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `users`
