@@ -4,7 +4,8 @@ require '../functions.php';
 
 $inventaris = query(
     "SELECT * FROM inventaris
-    INNER JOIN kondisi ON inventaris.id_kondisi = kondisi.id_kondisi"
+    INNER JOIN kondisi ON inventaris.id_kondisi = kondisi.id_kondisi
+    INNER JOIN satuan ON inventaris.id_satuan = satuan.id_satuan"
 );
 
 $html = '<body>
@@ -43,6 +44,7 @@ $html = '<body>
             <td style="text-align: center;">NAMA BARANG</td>
             <td style="text-align: center;">MERK</td>
             <td style="text-align: center;">QTY</td>
+            <td style="text-align: center;">SATUAN</td>
             <td style="text-align: center;">HARGA</td>
             <td style="text-align: center;">TOTAL HARGA</td>
             <td style="text-align: center;">TAHUN PEROLEHAN</td>
@@ -57,6 +59,7 @@ foreach ($inventaris as $i) {
             <td>' . $i["nama_barang"] . '</td>
             <td>' . $i["merk"] . '</td>
             <td style="text-align: center;">' . $i["qty"] . '</td>
+            <td style="text-align: center;">' . $i["satuan"] . '</td>
             <td style="text-align: right;">Rp. ' . number_format($i["harga"], 0, ',', '.') . '</td>
             <td style="text-align: right;">Rp. ' . number_format($i["qty"] * $i["harga"], 0, ',', '.') . '</td>
             <td style="text-align: center;">' . $i["tahun_perolehan"] . '</td>

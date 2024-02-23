@@ -1,7 +1,7 @@
 <?php
 
 // KONEKSI DATABASE =====================================================
-$conn = mysqli_connect("localhost", "root", "", "db_siib");
+$conn = mysqli_connect("localhost", "root", "", "db_simbara");
 
 
 function query($query)
@@ -134,6 +134,7 @@ function inventaris_add($data)
     $nama_barang = $data["nama_barang"];
     $merk = $data["merk"];
     $qty = $data["qty"];
+    $id_satuan = $data["id_satuan"];
     $harga = $data["harga"];
     $gambar = upload_gambar();
     $tahun_perolehan = $data["tahun_perolehan"];
@@ -151,7 +152,7 @@ function inventaris_add($data)
     } else {
         $query = "INSERT INTO inventaris
 				VALUES
-			(NULL, '$kode', '$nama_barang', '$merk', '$qty', '$harga', '$gambar', '$tahun_perolehan', '$id_kondisi', '$date_created', '$is_active')
+			(NULL, '$kode', '$nama_barang', '$merk', '$qty', '$id_satuan', '$harga', '$gambar', '$tahun_perolehan', '$id_kondisi', '$date_created', '$is_active')
 			";
 
         mysqli_query($conn, $query);
@@ -169,6 +170,7 @@ function inventaris_edit($data)
     $nama_barang = $data["nama_barang"];
     $merk = $data["merk"];
     $qty = $data["qty"];
+    $id_satuan = $data["id_satuan"];
     $harga = $data["harga"];
     $gambar_lama = $data["gambar_lama"];
 
@@ -186,6 +188,7 @@ function inventaris_edit($data)
 			nama_barang = '$nama_barang',
 			merk = '$merk',
 			qty = '$qty',
+			id_satuan = '$id_satuan',
 			harga = '$harga',
 			gambar = '$gambar',
 			tahun_perolehan = '$tahun_perolehan',
@@ -205,6 +208,16 @@ function inventaris_edit($data)
 function inventaris_delete($id_inventaris)
 {
     global $conn;
+
+    // Mendapatkan nama file gambar dari database berdasarkan id_inventaris
+    $result = mysqli_query($conn, "SELECT gambar FROM inventaris WHERE id_inventaris = $id_inventaris");
+    $row = mysqli_fetch_assoc($result);
+    $gambar = $row['gambar'];
+
+    // Hapus gambar dari folder assets jika file gambar ada
+    if (file_exists("../assets/img/barang/$gambar")) {
+        unlink("../assets/img/barang/$gambar");
+    }
 
     mysqli_query($conn, "DELETE FROM inventaris WHERE id_inventaris = $id_inventaris");
     return mysqli_affected_rows($conn);
@@ -234,7 +247,10 @@ function pengajuan_add($data)
         mysqli_query($conn, $query);
     }
 
-    return mysqli_affected_rows($conn);
+    // Mengambil ID pengajuan yang baru ditambahkan
+    $id_pengajuan_baru = mysqli_insert_id($conn);
+
+    return $id_pengajuan_baru;
 }
 
 function pengajuan_edit($data)

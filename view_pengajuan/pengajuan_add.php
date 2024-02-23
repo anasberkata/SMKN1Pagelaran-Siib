@@ -3,10 +3,12 @@ session_start();
 include "../templates/header.php";
 
 if (isset($_POST["add_pengajuan"])) {
-    if (pengajuan_add($_POST) > 0) {
+    $id_pengajuan_baru = pengajuan_add($_POST);
+
+    if ($id_pengajuan_baru > 0) {
         echo "<script>
             alert('Pengajuan berhasil ditambah!');
-            document.location.href = 'pengajuan.php';
+            document.location.href = 'pengajuan_detail.php?id_pengajuan=$id_pengajuan_baru';
           </script>";
     } else {
         echo "<script>

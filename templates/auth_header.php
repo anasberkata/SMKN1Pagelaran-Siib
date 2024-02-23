@@ -29,5 +29,5 @@
 <body class="bg-gray-200">
 
     <main class="main-content  mt-0">
-        <div class="page-header align-items-start min-vh-100" style="background-image: url('assets/img/bg.avif');">
+        <div class="page-header align-items-start min-vh-100" style="background-image: url('assets/img/bg3.jpg');">
             <span class="mask bg-gradient-dark opacity-6"></span>

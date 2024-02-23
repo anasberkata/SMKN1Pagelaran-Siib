@@ -3,6 +3,7 @@ session_start();
 include "../templates/header.php";
 
 $kondisi = query("SELECT * FROM kondisi");
+$satuan = query("SELECT * FROM satuan");
 
 if (isset($_POST["add_inventaris"])) {
     if (inventaris_add($_POST) > 0) {
@@ -59,6 +60,16 @@ if (isset($_POST["add_inventaris"])) {
                                 <label class="form-label">Qty</label>
                                 <input type="number" class="form-control" name="qty" required>
                             </div>
+                            <div class="input-group input-group-outline my-3">
+                                <select class="form-select form-control" name="id_satuan" required>
+                                    <option>Pilih Satuan</option>
+                                    <?php foreach ($satuan as $s): ?>
+                                        <option value="<?= $s["id_satuan"] ?>">
+                                            <?= $s["satuan"] ?>
+                                        </option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
                             <div class="input-group input-group-outline mb-3">
                                 <label class="form-label">Harga (Rp.)</label>
                                 <input type="number" class="form-control" name="harga" required>
@@ -72,7 +83,9 @@ if (isset($_POST["add_inventaris"])) {
                                 <select class="form-select form-control mb-3" name="id_kondisi" required>
                                     <option>Pilih Kondisi</option>
                                     <?php foreach ($kondisi as $k): ?>
-                                        <option value="<?= $k["id_kondisi"] ?>"><?= $k["kondisi"] ?></option>
+                                        <option value="<?= $k["id_kondisi"] ?>">
+                                            <?= $k["kondisi"] ?>
+                                        </option>
                                     <?php endforeach; ?>
                                 </select>
                             </div>

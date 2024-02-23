@@ -11,15 +11,20 @@ $total_pengajuan = count($pengajuan);
 $pengguna = query("SELECT * FROM users");
 $total_pengguna = count($pengguna);
 
+$peminjaman = query("SELECT * FROM peminjaman");
+$total_peminjaman = count($peminjaman);
+
 $inventaris_rusak = query(
-  "SELECT * FROM inventaris WHERE id_kondisi = 2"
+  "SELECT * FROM inventaris
+    INNER JOIN kondisi ON inventaris.id_kondisi = kondisi.id_kondisi
+    WHERE inventaris.id_kondisi = 2"
 );
 
 ?>
 
 <div class="row">
 
-  <div class="col-xl-4 col-sm-6 mb-xl-0 mb-4">
+  <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
     <div class="card mb-4">
       <div class="card-header p-3 pt-2">
         <div
@@ -35,7 +40,7 @@ $inventaris_rusak = query(
       </div>
     </div>
   </div>
-  <div class="col-xl-4 col-sm-6">
+  <div class="col-xl-3 col-sm-6">
     <div class="card mb-4">
       <div class="card-header p-3 pt-2">
         <div
@@ -51,11 +56,27 @@ $inventaris_rusak = query(
       </div>
     </div>
   </div>
-  <div class="col-xl-4 col-sm-6 mb-xl-0 mb-4">
+  <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
     <div class="card mb-4">
       <div class="card-header p-3 pt-2">
         <div
           class="icon icon-lg icon-shape bg-gradient-success shadow-primary text-center border-radius-xl mt-n4 position-absolute">
+          <i class="material-icons opacity-10">pending_actions</i>
+        </div>
+        <div class="text-end pt-1">
+          <p class="text-sm mb-0 text-capitalize">Peminjaman</p>
+          <h4 class="mb-0">
+            <?= $total_peminjaman ?>
+          </h4>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+    <div class="card mb-4">
+      <div class="card-header p-3 pt-2">
+        <div
+          class="icon icon-lg icon-shape bg-gradient-danger shadow-primary text-center border-radius-xl mt-n4 position-absolute">
           <i class="material-icons opacity-10">person</i>
         </div>
         <div class="text-end pt-1">
@@ -67,6 +88,7 @@ $inventaris_rusak = query(
       </div>
     </div>
   </div>
+
 
 </div>
 
@@ -101,16 +123,13 @@ $inventaris_rusak = query(
                   Qty
                 </th>
                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                  Harga
-                </th>
-                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                  Total Harga
+                  Kondisi
                 </th>
               </tr>
             </thead>
             <tbody>
               <?php $n = 1; ?>
-              <?php foreach ($inventaris as $i): ?>
+              <?php foreach ($inventaris_rusak as $i): ?>
                 <tr>
                   <td class="text-center text-sm">
                     <span class="mb-0 text-sm">
@@ -139,14 +158,7 @@ $inventaris_rusak = query(
                   </td>
                   <td>
                     <span class="mb-0 text-sm">
-                      Rp.
-                      <?= number_format($i["harga"], 0, ',', '.'); ?>
-                    </span>
-                  </td>
-                  <td>
-                    <span class="mb-0 text-sm">
-                      Rp.
-                      <?= number_format($i["qty"] * $i["harga"], 0, ',', '.'); ?>
+                      <?= $i["kondisi"]; ?>
                     </span>
                   </td>
                   <td>

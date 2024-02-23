@@ -4,7 +4,8 @@ include "../templates/header.php";
 
 $inventaris = query(
     "SELECT * FROM inventaris
-    INNER JOIN kondisi ON inventaris.id_kondisi = kondisi.id_kondisi"
+    INNER JOIN kondisi ON inventaris.id_kondisi = kondisi.id_kondisi
+    INNER JOIN satuan ON inventaris.id_satuan = satuan.id_satuan"
 );
 ?>
 
@@ -24,6 +25,14 @@ $inventaris = query(
                             <?php endif; ?>
                             <a href="inventaris_print.php" class="btn btn-sm btn-warning text-white" target="_blank"><i
                                     class="material-icons opacity-10">print</i> Print</a>
+                        </div>
+
+                        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                            <?php if ($user["role_id"] == 1): ?>
+                                <a href="satuan.php" class="btn btn-sm btn-success text-white"><i
+                                        class="material-icons opacity-10">turned_in</i>
+                                    Satuan</a>
+                            <?php endif; ?>
                         </div>
                     </div>
                 </div>
@@ -47,6 +56,9 @@ $inventaris = query(
                                     Merk</th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                                     Qty
+                                </th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                    Satuan
                                 </th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                                     Harga
@@ -83,7 +95,8 @@ $inventaris = query(
                                     </td>
                                     <td>
                                         <span class="mb-0 text-sm">
-                                            <img src="../assets/img/barang/<?= $i["gambar"]; ?>" class="img-thumbnail">
+                                            <img src="../assets/img/barang/<?= $i["gambar"]; ?>" class="img-thumbnail"
+                                                style="width: 100px">
                                         </span>
                                     </td>
                                     <td>
@@ -99,6 +112,11 @@ $inventaris = query(
                                     <td>
                                         <span class="mb-0 text-sm">
                                             <?= $i["qty"]; ?>
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span class="mb-0 text-sm">
+                                            <?= $i["satuan"]; ?>
                                         </span>
                                     </td>
                                     <td>

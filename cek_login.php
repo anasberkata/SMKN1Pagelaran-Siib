@@ -28,8 +28,18 @@ if ($cek > 0) {
         $_SESSION['id'] = $data['id_user'];
 
         header("location: view_admin/dashboard.php");
+    } else if ($data['role_id'] == 3) {
+        $_SESSION['login'] = true;
+        $_SESSION['id'] = $data['id_user'];
+
+        header("location: view_admin/dashboard.php");
+    } else if ($data['role_id'] == 4) {
+        $_SESSION['login'] = true;
+        $_SESSION['id'] = $data['id_user'];
+
+        header("location: view_admin/dashboard.php");
     } else {
-        header("location: index.php?pesan=Username / Password salah");
+        header("location: index.php?pesan=Anda tidak punya hak akses");
     }
 } else {
     header("location: index.php?pesan=Username / Password salah");
