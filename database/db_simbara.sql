@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Waktu pembuatan: 23 Feb 2024 pada 16.35
+-- Waktu pembuatan: 25 Feb 2024 pada 09.48
 -- Versi server: 10.4.27-MariaDB
 -- Versi PHP: 7.4.33
 
@@ -82,7 +82,8 @@ CREATE TABLE `peminjaman` (
   `id_peminjam` int(11) NOT NULL,
   `tanggal_peminjaman` date NOT NULL,
   `tanggal_pengembalian` date NOT NULL,
-  `status_peminjaman` int(11) NOT NULL
+  `status_peminjaman` int(11) NOT NULL,
+  `approve` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -313,7 +314,7 @@ ALTER TABLE `pengajuan_detail`
 -- AUTO_INCREMENT untuk tabel `satuan`
 --
 ALTER TABLE `satuan`
-  MODIFY `id_satuan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_satuan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT untuk tabel `users`

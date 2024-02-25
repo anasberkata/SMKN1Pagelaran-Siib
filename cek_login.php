@@ -32,7 +32,7 @@ if ($cek > 0) {
         $_SESSION['login'] = true;
         $_SESSION['id'] = $data['id_user'];
 
-        header("location: view_admin/dashboard.php");
+        header("location: view_siswa/dashboard.php");
     } else if ($data['role_id'] == 4) {
         $_SESSION['login'] = true;
         $_SESSION['id'] = $data['id_user'];

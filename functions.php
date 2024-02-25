@@ -223,6 +223,62 @@ function inventaris_delete($id_inventaris)
     return mysqli_affected_rows($conn);
 }
 
+// SATUAN
+function satuan_add($data)
+{
+    global $conn;
+
+    $satuan = $data["satuan"];
+
+    $cek_satuan = mysqli_query($conn, "SELECT satuan FROM satuan WHERE satuan = '$satuan'");
+
+    if (mysqli_fetch_assoc($cek_satuan)) {
+        echo "<script>
+            alert('Satuan Sudah Ada!');
+            document.location.href = 'satuan_add.php';
+            </script>";
+    } else {
+        $query = "INSERT INTO satuan
+				VALUES
+			(NULL, '$satuan')
+			";
+
+        mysqli_query($conn, $query);
+    }
+
+    return mysqli_affected_rows($conn);
+}
+
+function satuan_edit($data)
+{
+    global $conn;
+
+    $id_satuan = $data["id_satuan"];
+    $satuan = $data["satuan"];
+
+    $query = "UPDATE satuan SET
+			satuan = '$satuan'
+
+            WHERE id_satuan = $id_satuan
+			";
+
+    mysqli_query(
+        $conn,
+        $query
+    );
+
+    return mysqli_affected_rows($conn);
+}
+
+function satuan_delete($id_satuan)
+{
+    global $conn;
+
+    mysqli_query($conn, "DELETE FROM satuan WHERE id_satuan = $id_satuan");
+    return mysqli_affected_rows($conn);
+}
+
+
 // PENGAJUAN
 function pengajuan_add($data)
 {
