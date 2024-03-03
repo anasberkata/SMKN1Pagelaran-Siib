@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Waktu pembuatan: 25 Feb 2024 pada 09.48
+-- Waktu pembuatan: 03 Mar 2024 pada 11.02
 -- Versi server: 10.4.27-MariaDB
 -- Versi PHP: 7.4.33
 
@@ -47,8 +47,27 @@ CREATE TABLE `inventaris` (
 --
 
 INSERT INTO `inventaris` (`id_inventaris`, `kode`, `nama_barang`, `merk`, `qty`, `id_satuan`, `harga`, `gambar`, `tahun_perolehan`, `id_kondisi`, `date_created`, `is_active`) VALUES
-(2, 'PAG001', 'Headphone', 'ATX 3000', 4, 1, 875000, '646b1c934c1d2.jpeg', '2023', 1, '2023-05-22', 1),
+(2, 'PAG001', 'Headphone', 'ATX 3000', 3, 1, 875000, '646b1c934c1d2.jpeg', '2023', 1, '2023-05-22', 1),
 (3, 'PAG002', 'Mic Audio', 'Rode PodMic', 3, 1, 750000, '646b1cd407644.jpeg', '2022', 1, '2023-05-22', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `kelas`
+--
+
+CREATE TABLE `kelas` (
+  `id_kelas` int(11) NOT NULL,
+  `kelas` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `kelas`
+--
+
+INSERT INTO `kelas` (`id_kelas`, `kelas`) VALUES
+(1, 'X TKJ 1'),
+(2, 'X TKJ 2');
 
 -- --------------------------------------------------------
 
@@ -86,6 +105,15 @@ CREATE TABLE `peminjaman` (
   `approve` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data untuk tabel `peminjaman`
+--
+
+INSERT INTO `peminjaman` (`id_peminjaman`, `id_petugas`, `id_peminjam`, `tanggal_peminjaman`, `tanggal_pengembalian`, `status_peminjaman`, `approve`) VALUES
+(2, 1, 8, '2024-02-27', '2024-02-29', 1, 1),
+(3, 1, 8, '2024-02-27', '2024-04-01', 2, 1),
+(4, 1, 11, '2024-02-28', '2024-03-01', 2, 3);
+
 -- --------------------------------------------------------
 
 --
@@ -99,6 +127,18 @@ CREATE TABLE `peminjaman_detail` (
   `qty_peminjaman` int(11) NOT NULL,
   `kondisi_inventaris` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `peminjaman_detail`
+--
+
+INSERT INTO `peminjaman_detail` (`id_peminjaman_detail`, `id_peminjaman`, `id_inventaris`, `qty_peminjaman`, `kondisi_inventaris`) VALUES
+(4, 2, 3, 1, 1),
+(5, 2, 2, 2, 1),
+(6, 3, 2, 4, 1),
+(7, 3, 3, 1, 1),
+(8, 4, 2, 1, 1),
+(9, 4, 3, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -171,11 +211,14 @@ INSERT INTO `satuan` (`id_satuan`, `satuan`) VALUES
 
 CREATE TABLE `users` (
   `id_user` int(11) NOT NULL,
+  `nomor_induk` varchar(100) NOT NULL,
   `nama` varchar(255) NOT NULL,
   `username` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `image` varchar(255) NOT NULL,
+  `id_kelas` int(11) NOT NULL,
+  `phone` varchar(20) NOT NULL,
   `role_id` int(11) NOT NULL,
   `date_created` date NOT NULL,
   `is_active` int(11) NOT NULL
@@ -185,11 +228,14 @@ CREATE TABLE `users` (
 -- Dumping data untuk tabel `users`
 --
 
-INSERT INTO `users` (`id_user`, `nama`, `username`, `email`, `password`, `image`, `role_id`, `date_created`, `is_active`) VALUES
-(1, 'Beni Agustian', 'admin', 'beniagustian@gmail.com', 'admin', 'default.jpg', 1, '2023-04-26', 1),
-(3, 'Kepala Program TKJ', 'kaprogtkj', 'kaprogtkj@gmail.com', 'kaprogtkj', 'default.jpg', 2, '2023-04-26', 1),
-(7, 'Toolman TKJ', 'toolmantkj', 'toolmantkj@gmail.com', 'toolmantkj', 'default.jpg', 3, '2024-02-23', 1),
-(8, 'Siswa TKJ', 'siswatkj', 'siswatkj@gmail.com', 'siswatkj', 'default.jpg', 4, '2024-02-23', 1);
+INSERT INTO `users` (`id_user`, `nomor_induk`, `nama`, `username`, `email`, `password`, `image`, `id_kelas`, `phone`, `role_id`, `date_created`, `is_active`) VALUES
+(1, '0', 'Beni Agustian', 'admin', 'beniagustian@gmail.com', 'admin', 'default.jpg', 0, '0', 1, '2023-04-26', 1),
+(3, '0', 'Kepala Program TKJ', 'kaprogtkj', 'kaprogtkj@gmail.com', 'kaprogtkj', 'default.jpg', 0, '0', 2, '2023-04-26', 1),
+(7, '0', 'Toolman TKJ', 'toolmantkj', 'toolmantkj@gmail.com', 'toolmantkj', 'default.jpg', 0, '0987656789', 3, '2024-02-23', 1),
+(8, '23241001', 'Siswa TKJ', 'siswatkj', 'siswatkj@gmail.com', 'siswatkj', 'default.jpg', 1, '085156334607', 4, '2024-02-23', 1),
+(10, '23241001', 'Agung Gumilar', 'agung', 'agunggumilar@gmail.com', '12345', 'default.jpg', 1, '08787654565', 4, '2024-02-27', 1),
+(11, '23241003', 'Cucu', 'cucu', 'cucu@gmail.com', 'cucu', 'default.jpg', 2, '09878675456', 4, '2024-02-27', 1),
+(13, '12345', 'Beben', 'beben', 'email@email.com', 'beben', 'default.jpg', 1, '0987676766776', 4, '2024-03-02', 1);
 
 -- --------------------------------------------------------
 
@@ -221,6 +267,12 @@ INSERT INTO `users_role` (`id_role`, `role`) VALUES
 --
 ALTER TABLE `inventaris`
   ADD PRIMARY KEY (`id_inventaris`);
+
+--
+-- Indeks untuk tabel `kelas`
+--
+ALTER TABLE `kelas`
+  ADD PRIMARY KEY (`id_kelas`);
 
 --
 -- Indeks untuk tabel `kondisi`
@@ -281,6 +333,12 @@ ALTER TABLE `inventaris`
   MODIFY `id_inventaris` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
+-- AUTO_INCREMENT untuk tabel `kelas`
+--
+ALTER TABLE `kelas`
+  MODIFY `id_kelas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT untuk tabel `kondisi`
 --
 ALTER TABLE `kondisi`
@@ -290,13 +348,13 @@ ALTER TABLE `kondisi`
 -- AUTO_INCREMENT untuk tabel `peminjaman`
 --
 ALTER TABLE `peminjaman`
-  MODIFY `id_peminjaman` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_peminjaman` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT untuk tabel `peminjaman_detail`
 --
 ALTER TABLE `peminjaman_detail`
-  MODIFY `id_peminjaman_detail` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_peminjaman_detail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT untuk tabel `pengajuan`
@@ -320,7 +378,7 @@ ALTER TABLE `satuan`
 -- AUTO_INCREMENT untuk tabel `users`
 --
 ALTER TABLE `users`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT untuk tabel `users_role`

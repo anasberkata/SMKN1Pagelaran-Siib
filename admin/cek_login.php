@@ -2,11 +2,11 @@
 session_start();
 
 if (isset($_SESSION['login'])) {
-    header("Location: view_admin/dashboard.php");
+    header("Location: ../view_admin/dashboard.php");
     exit;
 }
 
-require "functions.php";
+require "../functions.php";
 
 $username = $_POST['username'];
 $password = $_POST['password'];
@@ -18,11 +18,21 @@ if ($cek > 0) {
 
     $data = mysqli_fetch_assoc($login);
 
-    if ($data['role_id'] == 4) {
+    if ($data['role_id'] == 1) {
         $_SESSION['login'] = true;
         $_SESSION['id'] = $data['id_user'];
 
-        header("location: view_siswa/dashboard.php");
+        header("location: ../view_admin/dashboard.php");
+    } else if ($data['role_id'] == 2) {
+        $_SESSION['login'] = true;
+        $_SESSION['id'] = $data['id_user'];
+
+        header("location: ../view_admin/dashboard.php");
+    } else if ($data['role_id'] == 3) {
+        $_SESSION['login'] = true;
+        $_SESSION['id'] = $data['id_user'];
+
+        header("location: ../view_admin/dashboard.php");
     } else {
         header("location: index.php?pesan=Anda tidak punya hak akses");
     }
