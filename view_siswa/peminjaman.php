@@ -12,13 +12,11 @@ $peminjaman = query(
     WHERE id_peminjam = $id_peminjam"
 );
 
-$inventaris = query("SELECT * FROM inventaris WHERE NOT qty = 0");
-
 ?>
 
 
 <div class="row mb-4 mx-1">
-    <div class="col-12 col-md-6">
+    <div class="col-12 col-md-12">
         <div class="card">
             <div class="card-header pb-0">
                 <div class="row">
@@ -49,6 +47,11 @@ $inventaris = query("SELECT * FROM inventaris WHERE NOT qty = 0");
                                     Tanggal Peminjaman</th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                                     Tanggal Pengembalian</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                    Petugas</th>
+                                <th
+                                    class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                    Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -99,50 +102,32 @@ $inventaris = query("SELECT * FROM inventaris WHERE NOT qty = 0");
                                             </span>
                                         </p>
                                     </td>
+                                    <td>
+                                        <span class="mb-0 text-sm">
+                                            <?= $p["nama_petugas"]; ?>
+                                        </span>
+                                    </td>
+                                    <td class="align-middle text-center">
+                                        <div class="btn-group btn-group-toggle mt-3" data-toggle="buttons">
+                                            <a href="peminjaman_detail.php?id_peminjaman=<?= $p["id_peminjaman"] ?>"
+                                                class="btn btn-sm btn-primary text-white">Input</a>
+                                            <a href="peminjaman_edit.php?id_peminjaman=<?= $p["id_peminjaman"] ?>"
+                                                class="btn btn-sm btn-info text-white"><i
+                                                    class="material-icons opacity-10">edit</i></a>
+                                            <a href="peminjaman_detail_print.php?id_peminjaman=<?= $p["id_peminjaman"] ?>"
+                                                class="btn btn-sm btn-warning text-white" target="_blank"><i
+                                                    class="material-icons opacity-10">print</i> Print</a>
+                                            <!-- <a href="peminjaman_delete.php?id_peminjaman=<?= $p["id_peminjaman"] ?>"
+                                                    class="btn btn-sm btn-danger text-white"
+                                                    onclick="return confirm('Yakin ingin menghapus <?= $p['tanggal_peminjaman']; ?> peminjam <?= $p['nama_peminjam']; ?>?');"><i
+                                                        class="material-icons opacity-10">delete</i></a> -->
+                                        </div>
+                                    </td>
                                 </tr>
                                 <?php $n++; ?>
                             <?php endforeach; ?>
                         </tbody>
                     </table>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    <div class="col-12 col-md-6">
-        <div class="card">
-            <div class="card-header pb-0">
-                <div class="row">
-                    <div class="col-127">
-                        <h6>Data Kesediaan Alat / Barang</h6>
-                    </div>
-
-                </div>
-            </div>
-            <div class="card-body pb-3">
-                <div class="row">
-                    <?php foreach ($inventaris as $i): ?>
-                        <div class="col-lg-3 col-md-6">
-                            <div class="card mb-3">
-                                <div class="el-card-item">
-                                    <div class="el-card-avatar el-overlay-1">
-                                        <img src="../assets/img/barang/<?= $i["gambar"]; ?>" alt="inventaris"
-                                            class="img-thumbnail" />
-                                    </div>
-                                    <div class="el-card-content text-center">
-                                        <h4 class="my-2">
-                                            <?= $i["nama_barang"]; ?>
-                                        </h4>
-                                        <p class="small">
-                                            Qty :
-                                            <?= $i["qty"]; ?>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    <?php endforeach; ?>
                 </div>
             </div>
         </div>

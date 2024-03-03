@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Waktu pembuatan: 03 Mar 2024 pada 11.02
+-- Waktu pembuatan: 03 Mar 2024 pada 19.02
 -- Versi server: 10.4.27-MariaDB
 -- Versi PHP: 7.4.33
 
@@ -47,7 +47,7 @@ CREATE TABLE `inventaris` (
 --
 
 INSERT INTO `inventaris` (`id_inventaris`, `kode`, `nama_barang`, `merk`, `qty`, `id_satuan`, `harga`, `gambar`, `tahun_perolehan`, `id_kondisi`, `date_created`, `is_active`) VALUES
-(2, 'PAG001', 'Headphone', 'ATX 3000', 3, 1, 875000, '646b1c934c1d2.jpeg', '2023', 1, '2023-05-22', 1),
+(2, 'PAG001', 'Headphone', 'ATX 3000', 2, 1, 875000, '646b1c934c1d2.jpeg', '2023', 1, '2023-05-22', 1),
 (3, 'PAG002', 'Mic Audio', 'Rode PodMic', 3, 1, 750000, '646b1cd407644.jpeg', '2022', 1, '2023-05-22', 1);
 
 -- --------------------------------------------------------
@@ -112,7 +112,8 @@ CREATE TABLE `peminjaman` (
 INSERT INTO `peminjaman` (`id_peminjaman`, `id_petugas`, `id_peminjam`, `tanggal_peminjaman`, `tanggal_pengembalian`, `status_peminjaman`, `approve`) VALUES
 (2, 1, 8, '2024-02-27', '2024-02-29', 1, 1),
 (3, 1, 8, '2024-02-27', '2024-04-01', 2, 1),
-(4, 1, 11, '2024-02-28', '2024-03-01', 2, 3);
+(4, 1, 11, '2024-02-28', '2024-03-01', 2, 3),
+(5, 1, 8, '2024-03-04', '2024-03-06', 2, 2);
 
 -- --------------------------------------------------------
 
@@ -138,7 +139,8 @@ INSERT INTO `peminjaman_detail` (`id_peminjaman_detail`, `id_peminjaman`, `id_in
 (6, 3, 2, 4, 1),
 (7, 3, 3, 1, 1),
 (8, 4, 2, 1, 1),
-(9, 4, 3, 1, 1);
+(9, 4, 3, 1, 1),
+(10, 5, 2, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -348,13 +350,13 @@ ALTER TABLE `kondisi`
 -- AUTO_INCREMENT untuk tabel `peminjaman`
 --
 ALTER TABLE `peminjaman`
-  MODIFY `id_peminjaman` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_peminjaman` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT untuk tabel `peminjaman_detail`
 --
 ALTER TABLE `peminjaman_detail`
-  MODIFY `id_peminjaman_detail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_peminjaman_detail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT untuk tabel `pengajuan`
